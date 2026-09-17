@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import AuthGate from "@/components/AuthGate";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Fuel() {
+  const { user, openAuthModal } = useAuth();
   const [weightKg, setWeightKg] = useState(60);
   const [activePhase, setActivePhase] = useState("follicular"); // "follicular" | "luteal"
 
@@ -116,9 +118,15 @@ export default function Fuel() {
                   background: activePhase === "luteal" ? "linear-gradient(135deg, #ffd166, #ff85a1)" : "transparent",
                   color: activePhase === "luteal" ? "#0d0f12" : "var(--mut)"
                 }}
-                onClick={() => setActivePhase("luteal")}
+                onClick={() => {
+                  if (!user) {
+                    openAuthModal("Sign in or create a free account to unlock Luteal Phase hormone diet protocols!");
+                    return;
+                  }
+                  setActivePhase("luteal");
+                }}
               >
-                🌕 Luteal Phase (Days 15–28)
+                🌕 Luteal Phase (Days 15–28) {!user && "🔒"}
               </button>
             </div>
           </div>
@@ -128,64 +136,68 @@ export default function Fuel() {
               <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "12px", border: "1px solid var(--ln)" }}>
                 <b style={{ color: "var(--acc)", fontSize: "15px" }}>⚡ High Energy & Strength Window</b>
                 <p className="mut sm" style={{ marginTop: "6px", fontSize: "12.5px", lineHeight: "1.4" }}>
-                  Estrogen is on the rise. Insulin sensitivity is highest, making carbohydrates easily stored as muscle glycogen. Push progressive overload on Glute Bridges, Bulgarian Squats, and HIIT.
+                  Estrogen rises, boosting insulin sensitivity and neuromuscular recovery. Perfect time to hit higher rep targets and progressive push-up overload.
                 </p>
               </div>
               <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "12px", border: "1px solid var(--ln)" }}>
-                <b style={{ color: "var(--ok)", fontSize: "15px" }}>🥗 Optimal Plate</b>
+                <b style={{ color: "var(--ok)", fontSize: "15px" }}>🥗 Complex Carbs & Lean Amino Acids</b>
                 <p className="mut sm" style={{ marginTop: "6px", fontSize: "12.5px", lineHeight: "1.4" }}>
-                  Lean proteins (salmon, chicken breast, tofu), complex carbohydrates (sweet potatoes, quinoa, berries), and sprouted greens to assist liver estrogen clearance.
+                  Prioritize oats, quinoa, berries, salmon, and egg whites. Glycogen storage capacity is highest during this 14-day window.
                 </p>
               </div>
             </div>
           ) : (
             <div className="g2">
               <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "12px", border: "1px solid var(--ln)" }}>
-                <b style={{ color: "var(--acc-gold)", fontSize: "15px" }}>🧘 Metabolic Shift & Fluid Flush</b>
+                <b style={{ color: "var(--warn)", fontSize: "15px" }}>🔥 Higher Metabolic Rate & Recovery</b>
                 <p className="mut sm" style={{ marginTop: "6px", fontSize: "12.5px", lineHeight: "1.4" }}>
-                  Progesterone rises; core temperature increases and metabolic rate ticks up by 100–200 kcal. Shift toward steady-state sculpt flows, deep TVA vacuums, and posture realignments.
+                  Progesterone peaks, increasing basal metabolic rate by 100–250 kcal/day. Focus on mind-muscle control, lower reps, and deeper isometric holds.
                 </p>
               </div>
               <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "12px", border: "1px solid var(--ln)" }}>
-                <b style={{ color: "#3ed598", fontSize: "15px" }}>🥑 Anti-Bloat & Magnesium Fuel</b>
+                <b style={{ color: "var(--acc-warm)", fontSize: "15px" }}>🥑 Healthy Fats & Magnesium Rich</b>
                 <p className="mut sm" style={{ marginTop: "6px", fontSize: "12.5px", lineHeight: "1.4" }}>
-                  Load up on potassium (avocado, coconut water, bananas) to dump sodium-induced water weight. Add dark chocolate (85%) and pumpkin seeds for magnesium to prevent cravings.
+                  Avocado, pumpkin seeds, dark leafy greens, and dark chocolate to combat progesterone cravings and stabilize blood sugar.
                 </p>
               </div>
             </div>
           )}
         </div>
 
-        {/* Personalized Toning Calculator */}
+        {/* Macro & Hydration Recomp Calculator */}
         <div
           style={{
-            background: "var(--p)",
+            background: "rgba(255,255,255,0.02)",
             border: "1px solid var(--ln)",
             borderRadius: "18px",
             padding: "20px",
             marginBottom: "28px"
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px", marginBottom: "14px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px", marginBottom: "16px" }}>
             <div>
-              <span className="cali-acc" style={{ color: "var(--acc)" }}>PERSONALIZED FORMULA</span>
-              <h3 style={{ fontSize: "18px", margin: "2px 0 0", fontWeight: "900" }}>Goddess Macro Calculator</h3>
+              <span className="cali-acc" style={{ color: "var(--acc)" }}>TARGET FORMULAS</span>
+              <h3 style={{ fontSize: "19px", margin: "2px 0 0", fontWeight: "900" }}>Daily Fuel & Hydration Formula</h3>
             </div>
+
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={{ fontSize: "13px", color: "var(--tx)" }}>Your Weight:</span>
+              <span className="mut sm">Your Weight:</span>
               <input
                 type="number"
+                min="40"
+                max="140"
                 value={weightKg}
-                onChange={(e) => setWeightKg(Math.max(35, parseInt(e.target.value, 10) || 50))}
+                onChange={(e) => setWeightKg(Number(e.target.value) || 60)}
                 style={{
-                  width: "70px",
-                  padding: "6px 10px",
-                  background: "rgba(0,0,0,0.4)",
+                  width: "64px",
+                  background: "rgba(0,0,0,0.5)",
                   border: "1px solid var(--ln)",
                   borderRadius: "8px",
+                  padding: "6px 8px",
                   color: "#fff",
                   fontSize: "14px",
-                  fontWeight: "700"
+                  fontWeight: "bold",
+                  textAlign: "center"
                 }}
               />
               <span style={{ fontSize: "13px", color: "var(--mut)" }}>kg</span>
@@ -214,35 +226,69 @@ export default function Fuel() {
           <span className="mut">How to keep the waist cinched all day</span>
         </div>
 
-        <div className="grid g3" style={{ marginBottom: "32px" }}>
-          <div className="card" style={{ padding: "16px" }}>
-            <div style={{ fontSize: "28px", marginBottom: "6px" }}>☕</div>
-            <b style={{ fontSize: "15px", color: "#fff", display: "block", marginBottom: "4px" }}>
-              Fasted Morning Vacuum
-            </b>
-            <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4" }}>
-              Practice your 3 rounds of stomach vacuums before consuming food or coffee. An empty digestive tract allows deepest TVA retraction.
-            </p>
-          </div>
+        <div style={{ position: "relative", marginBottom: "32px" }}>
+          {!user && (
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "rgba(13, 15, 18, 0.85)",
+                backdropFilter: "blur(6px)",
+                borderRadius: "16px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 10,
+                padding: "24px",
+                textAlign: "center"
+              }}
+            >
+              <span style={{ fontSize: "36px", marginBottom: "8px" }}>🔒</span>
+              <h3 style={{ fontSize: "18px", margin: "0 0 6px" }}>Anti-Bloat Protocol Locked</h3>
+              <p className="mut sm" style={{ maxWidth: "360px", marginBottom: "16px", fontSize: "13px" }}>
+                Create a free account to unlock daily anti-bloat routines and morning vacuum guidelines.
+              </p>
+              <button
+                className="btn"
+                style={{ background: "linear-gradient(135deg, #ff70a6, #ff3d68)", color: "#000", fontWeight: "900", padding: "10px 22px" }}
+                onClick={() => openAuthModal("Sign in or register to unlock the full Anti-Bloat Protocol.")}
+              >
+                🔐 Sign In / Free Account →
+              </button>
+            </div>
+          )}
 
-          <div className="card" style={{ padding: "16px" }}>
-            <div style={{ fontSize: "28px", marginBottom: "6px" }}>🥒</div>
-            <b style={{ fontSize: "15px", color: "#fff", display: "block", marginBottom: "4px" }}>
-              Potassium-Sodium Balance
-            </b>
-            <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4" }}>
-              High sodium without potassium pulls fluid under the subcutaneous skin layer. A cup of cucumber water or coconut water immediately restores cellular balance.
-            </p>
-          </div>
+          <div className="grid g3">
+            <div className="card" style={{ padding: "16px" }}>
+              <div style={{ fontSize: "28px", marginBottom: "6px" }}>☕</div>
+              <b style={{ fontSize: "15px", color: "#fff", display: "block", marginBottom: "4px" }}>
+                Fasted Morning Vacuum
+              </b>
+              <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4" }}>
+                Practice your 3 rounds of stomach vacuums before consuming food or coffee. An empty digestive tract allows deepest TVA retraction.
+              </p>
+            </div>
 
-          <div className="card" style={{ padding: "16px" }}>
-            <div style={{ fontSize: "28px", marginBottom: "6px" }}>🚫</div>
-            <b style={{ fontSize: "15px", color: "#fff", display: "block", marginBottom: "4px" }}>
-              Zero Carbonation Rule
-            </b>
-            <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4" }}>
-              Sparkling water and soda trap gas bubbles against the stomach lining, creating immediate visual distension. Stick to still water with lemon or mint.
-            </p>
+            <div className="card" style={{ padding: "16px" }}>
+              <div style={{ fontSize: "28px", marginBottom: "6px" }}>🥒</div>
+              <b style={{ fontSize: "15px", color: "#fff", display: "block", marginBottom: "4px" }}>
+                Potassium-Sodium Balance
+              </b>
+              <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4" }}>
+                High sodium without potassium pulls fluid under the subcutaneous skin layer. A cup of cucumber water or coconut water immediately restores cellular balance.
+              </p>
+            </div>
+
+            <div className="card" style={{ padding: "16px" }}>
+              <div style={{ fontSize: "28px", marginBottom: "6px" }}>🚫</div>
+              <b style={{ fontSize: "15px", color: "#fff", display: "block", marginBottom: "4px" }}>
+                Zero Carbonation Rule
+              </b>
+              <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4" }}>
+                Sparkling water and soda trap gas bubbles against the stomach lining, creating immediate visual distension. Stick to still water with lemon or mint.
+              </p>
+            </div>
           </div>
         </div>
       </div>

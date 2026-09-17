@@ -11,12 +11,16 @@ const FREE_PROGRAMS = ["p1"];
 
 export default function Programs() {
   const { startWorkout, customRoutines = [], deleteCustomRoutine } = useFitness();
-  const { isPro, openProModal } = useAuth();
+  const { user, isPro, openProModal, openAuthModal } = useAuth();
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [builderOpen, setBuilderOpen] = useState(false);
   const [editingRoutine, setEditingRoutine] = useState(null);
 
   const handleProgramAction = (pId, pName, wId) => {
+    if (!user) {
+      openAuthModal(`Sign in or create a free account to follow the ${pName} program!`);
+      return;
+    }
     const isLocked = !isPro && !FREE_PROGRAMS.includes(pId);
     if (isLocked) {
       openProModal(pName);
@@ -27,6 +31,10 @@ export default function Programs() {
   };
 
   const handleDirectStart = (pId, pName, wId) => {
+    if (!user) {
+      openAuthModal(`Sign in or create a free account to launch sessions from ${pName}!`);
+      return;
+    }
     const isLocked = !isPro && !FREE_PROGRAMS.includes(pId);
     if (isLocked) {
       openProModal(pName);

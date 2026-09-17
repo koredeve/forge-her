@@ -12,7 +12,7 @@ const FREE_SKILLS = ["pushup", "vacuum", "glutebridge"];
 
 export default function Sculpt() {
   const { skills, toggleSkill, getSkillsPct, startWorkout } = useFitness();
-  const { isPro, openProModal } = useAuth();
+  const { user, isPro, openProModal, openAuthModal } = useAuth();
 
   const [openSkills, setOpenSkills] = useState({
     pushup: true,
@@ -40,6 +40,13 @@ export default function Sculpt() {
   };
 
   const handleLevelClick = (skillId, levelIdx, skillName) => {
+    if (!user) {
+      if (levelIdx > 0 || skillId !== "pushup") {
+        haptics.countdown();
+        openAuthModal(`Sign in or create a free account to track your levels and progress on ${skillName}!`);
+        return;
+      }
+    }
     const isLevelLocked = !isPro && (!FREE_SKILLS.includes(skillId) || levelIdx >= 2);
     if (isLevelLocked) {
       haptics.countdown();

@@ -2,7 +2,7 @@
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
 
-export default function AuthGate({ title, subtitle, icon = "🌸", children }) {
+export default function AuthGate({ title, subtitle, icon = "🌸", allowGuestPreview = true, children }) {
   const { user, loading, openAuthModal } = useAuth();
   const [guestPreview, setGuestPreview] = React.useState(false);
 
@@ -39,7 +39,7 @@ export default function AuthGate({ title, subtitle, icon = "🌸", children }) {
           </h2>
 
           <p className="sub" style={{ margin: "0 auto 24px", maxWidth: "460px", fontSize: "14.5px" }}>
-            {subtitle || "Create a free account or continue in Guest Preview to access video guides, sculpt ladders, cycle fuel, and workouts."}
+            {subtitle || "Create a free account to unlock full HD video guides, sculpt ladders, cycle fuel, and workouts."}
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "340px", margin: "0 auto" }}>
@@ -50,13 +50,15 @@ export default function AuthGate({ title, subtitle, icon = "🌸", children }) {
             >
               🔐 Sign In / Free Account →
             </button>
-            <button
-              className="btn bgh"
-              style={{ justifyContent: "center", padding: "12px", fontSize: "14px", border: "1px solid var(--ln)", color: "var(--mut)" }}
-              onClick={() => setGuestPreview(true)}
-            >
-              👀 Continue as Guest Preview
-            </button>
+            {allowGuestPreview && (
+              <button
+                className="btn bgh"
+                style={{ justifyContent: "center", padding: "12px", fontSize: "13.5px", border: "1px solid var(--ln)", color: "var(--tx-dim)" }}
+                onClick={() => setGuestPreview(true)}
+              >
+                👀 View Sample Teaser
+              </button>
+            )}
           </div>
 
           <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px dashed var(--ln)", display: "flex", justifyContent: "space-around", color: "var(--mut)", fontSize: "12px" }}>
@@ -69,5 +71,48 @@ export default function AuthGate({ title, subtitle, icon = "🌸", children }) {
     );
   }
 
-  return children;
+  return (
+    <>
+      {!user && guestPreview && (
+        <div
+          style={{
+            background: "linear-gradient(90deg, rgba(255, 112, 166, 0.15) 0%, rgba(255, 112, 166, 0.05) 100%)",
+            border: "1px solid rgba(255, 112, 166, 0.35)",
+            borderRadius: "14px",
+            padding: "10px 16px",
+            marginBottom: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "10px"
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={{ fontSize: "18px" }}>👀</span>
+            <div>
+              <b style={{ fontSize: "12.5px", color: "var(--acc)", display: "block" }}>GUEST SAMPLE TEASER</b>
+              <span className="mut sm" style={{ fontSize: "11px" }}>
+                Previewing sample items. Sign in to unlock full cloud sync & all features.
+              </span>
+            </div>
+          </div>
+          <button
+            className="btn sm"
+            style={{
+              fontSize: "11.5px",
+              padding: "6px 14px",
+              background: "linear-gradient(135deg, #ff70a6, #ff3d68)",
+              color: "#000",
+              fontWeight: "800"
+            }}
+            onClick={() => openAuthModal("Sign in or create a free account to unlock full access & cloud sync.")}
+          >
+            🔐 Sign In / Free Account →
+          </button>
+        </div>
+      )}
+      {children}
+    </>
+  );
 }

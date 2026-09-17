@@ -113,6 +113,7 @@ export default function ProfilePage() {
       title="Goddess Profile"
       subtitle="Sign in to view your sculpt progress, track unlocked ladders, and manage your account."
       icon="🌸"
+      allowGuestPreview={false}
     >
       <div className="vw active" id="v-profile">
         {/* Profile Card */}
