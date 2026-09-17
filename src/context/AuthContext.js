@@ -153,13 +153,19 @@ export function AuthProvider({ children }) {
         console.error("Redirect sign-in error:", err);
       });
 
+    const timer = setTimeout(() => {
+      if (isMounted) setLoading(false);
+    }, 1500);
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!isMounted) return;
+      clearTimeout(timer);
       handleUserSession(currentUser);
     });
 
     return () => {
       isMounted = false;
+      clearTimeout(timer);
       unsubscribe();
     };
   }, []);

@@ -18,10 +18,6 @@ export default function WorkoutModal({ workout, onClose }) {
   if (!workout) return null;
 
   const handleStart = () => {
-    if (!user) {
-      openAuthModal("Sign in or create a free account to launch the guided workout player and track your streaks.");
-      return;
-    }
     startWorkout(workout.id);
     onClose();
   };
@@ -71,7 +67,7 @@ export default function WorkoutModal({ workout, onClose }) {
             Cancel
           </button>
           <button className="btn" onClick={handleStart}>
-            {user ? "▶ START GUIDED SESSION" : "🔐 Sign In to Start Session"}
+            ▶ START GUIDED SESSION
           </button>
         </div>
       </div>
