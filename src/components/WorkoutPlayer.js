@@ -339,20 +339,21 @@ export default function WorkoutPlayer() {
           maxWidth: "680px",
           width: "100%",
           margin: "0 auto",
-          padding: "16px"
+          padding: "12px 14px"
         }}
       >
-        {/* Video / Visual Demonstration Frame */}
+        {/* Video / Visual Demonstration Frame - Responsive & Compact for Mobile */}
         <div
           style={{
             position: "relative",
             width: "100%",
-            height: "320px",
-            borderRadius: "18px",
+            height: "clamp(170px, 26vh, 230px)",
+            maxHeight: "230px",
+            borderRadius: "14px",
             overflow: "hidden",
             background: "#000",
             border: "1px solid var(--ln)",
-            marginBottom: "16px"
+            marginBottom: "10px"
           }}
         >
           <video
@@ -367,14 +368,14 @@ export default function WorkoutPlayer() {
           />
 
           {/* Phase Badge */}
-          <div style={{ position: "absolute", top: "12px", left: "12px", right: "12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ position: "absolute", top: "10px", left: "10px", right: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span
               style={{
                 background: isWork ? "var(--acc)" : isRest ? "var(--ok)" : "var(--warn)",
                 color: "#000",
-                padding: "4px 12px",
+                padding: "3px 10px",
                 borderRadius: "99px",
-                fontSize: "11px",
+                fontSize: "10.5px",
                 fontWeight: "900",
                 letterSpacing: "0.06em"
               }}
@@ -429,7 +430,7 @@ export default function WorkoutPlayer() {
               <img
                 src={media.img}
                 alt={currentEx.n}
-                style={{ width: "100%", height: "280px", objectFit: "cover", borderRadius: "12px", border: "1px solid var(--ln)", display: "block" }}
+                style={{ width: "100%", height: "240px", objectFit: "cover", borderRadius: "12px", border: "1px solid var(--ln)", display: "block" }}
               />
               <p className="mut sm" style={{ marginTop: "10px", fontSize: "12px" }}>
                 🎯 <b>Target:</b> {currentEx.ms || "Optimal execution posture"}
@@ -443,50 +444,50 @@ export default function WorkoutPlayer() {
           style={{
             background: "rgba(20, 24, 30, 0.8)",
             border: "1px solid var(--ln)",
-            borderRadius: "16px",
-            padding: "16px 20px",
-            marginBottom: "16px",
+            borderRadius: "14px",
+            padding: "10px 16px",
+            marginBottom: "10px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center"
           }}
         >
           <div>
-            <span className="mut sm" style={{ fontSize: "11px" }}>
+            <span className="mut sm" style={{ fontSize: "10.5px" }}>
               SET {currentStep?.setNum} OF {currentStep?.totalSets}
             </span>
-            <h3 style={{ fontSize: "20px", margin: "2px 0 4px", fontWeight: "900" }}>{currentEx.n}</h3>
-            <span className="mut sm" style={{ fontSize: "12px" }}>{currentEx.ms}</span>
+            <h3 style={{ fontSize: "17px", margin: "1px 0 2px", fontWeight: "900" }}>{currentEx.n}</h3>
+            <span className="mut sm" style={{ fontSize: "11.5px" }}>{currentEx.ms}</span>
           </div>
 
           <div style={{ textAlign: "right" }}>
-            <b style={{ fontSize: "28px", color: isWork ? "var(--acc)" : "var(--ok)", fontFamily: "Archivo" }}>
+            <b style={{ fontSize: "24px", color: isWork ? "var(--acc)" : "var(--ok)", fontFamily: "Archivo" }}>
               {timer}s
             </b>
-            <span className="mut sm" style={{ display: "block", fontSize: "11px" }}>
+            <span className="mut sm" style={{ display: "block", fontSize: "10.5px" }}>
               {currentStep?.label}
             </span>
           </div>
         </div>
 
-        {/* Biomechanical Cues */}
+        {/* Biomechanical Cues (Form Instructions) */}
         {currentEx.cu && currentEx.cu.length > 0 && (
           <div
             style={{
               background: "rgba(255, 112, 166, 0.05)",
               border: "1px solid rgba(255, 112, 166, 0.2)",
-              borderRadius: "14px",
-              padding: "12px 16px",
-              marginBottom: "16px"
+              borderRadius: "12px",
+              padding: "10px 14px",
+              marginBottom: "10px"
             }}
           >
-            <b style={{ color: "var(--acc)", fontSize: "12px", display: "block", marginBottom: "6px" }}>
-              💡 COACH FORM CUES:
+            <b style={{ color: "var(--acc)", fontSize: "11.5px", display: "block", marginBottom: "4px" }}>
+              💡 COACH FORM INSTRUCTIONS:
             </b>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "4px", fontSize: "12px", color: "var(--tx)" }}>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "3px", fontSize: "11.5px", color: "var(--tx)", margin: 0, padding: 0 }}>
               {currentEx.cu.map((c, idx) => (
                 <li key={idx} style={{ display: "flex", gap: "6px" }}>
-                  <span style={{ color: "var(--acc)" }}>✓</span>
+                  <span style={{ color: "var(--acc)", fontWeight: "bold" }}>✓</span>
                   <span>{c}</span>
                 </li>
               ))}

@@ -145,8 +145,15 @@ export function AuthProvider({ children }) {
       .then((result) => {
         if (!isMounted) return;
         if (result?.user) {
-          console.log("Mobile Google redirect sign-in successful:", result.user.email);
+          console.log("Google redirect sign-in successful:", result.user.email);
           handleUserSession(result.user);
+          if (typeof window !== "undefined") {
+            const returnUrl = sessionStorage.getItem("forge_return_url");
+            if (returnUrl && returnUrl !== "/" && returnUrl !== window.location.pathname) {
+              sessionStorage.removeItem("forge_return_url");
+              window.location.replace(returnUrl);
+            }
+          }
         }
       })
       .catch((err) => {
@@ -161,6 +168,13 @@ export function AuthProvider({ children }) {
       if (!isMounted) return;
       clearTimeout(timer);
       handleUserSession(currentUser);
+      if (currentUser && typeof window !== "undefined") {
+        const returnUrl = sessionStorage.getItem("forge_return_url");
+        if (returnUrl && returnUrl !== "/" && returnUrl !== window.location.pathname) {
+          sessionStorage.removeItem("forge_return_url");
+          window.location.replace(returnUrl);
+        }
+      }
     });
 
     return () => {
@@ -182,24 +196,25 @@ export function AuthProvider({ children }) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
 
-    const isMobile = typeof window !== "undefined" && (
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-      window.innerWidth <= 768
-    );
-
-    // On mobile browsers, popups get blocked or closed during tab switches; use redirect
-    if (isMobile) {
-      return signInWithRedirect(auth, provider);
+    // Store return URL so user isn't dumped to home page after authenticating
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("forge_return_url", window.location.pathname + window.location.search);
     }
 
-    // On desktop, try popup first; if blocked or closed, fallback to redirect
+    // Try in-place popup first (works across modern iOS/Android without redirecting away from current page)
     try {
-      return await signInWithPopup(auth, provider);
+      const res = await signInWithPopup(auth, provider);
+      if (res?.user) {
+        handleUserSession(res.user);
+      }
+      return res;
     } catch (popupError) {
+      console.warn("Popup blocked or closed, falling back to redirect:", popupError.code);
       if (
         popupError.code === "auth/popup-blocked" ||
         popupError.code === "auth/popup-closed-by-user" ||
-        popupError.code === "auth/cancelled-popup-request"
+        popupError.code === "auth/cancelled-popup-request" ||
+        popupError.code === "auth/internal-error"
       ) {
         return signInWithRedirect(auth, provider);
       }

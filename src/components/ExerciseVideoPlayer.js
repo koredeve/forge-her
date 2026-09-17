@@ -116,7 +116,7 @@ export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category
       }}
     >
       {showPhoto ? (
-        <div style={{ position: "relative", width: "100%", height: "260px" }}>
+        <div style={{ position: "relative", width: "100%", height: "clamp(180px, 26vh, 230px)" }}>
           <img
             src={imageSrc}
             alt={exerciseName || "Biomechanical Reference"}
@@ -155,7 +155,7 @@ export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category
           playsInline
           style={{
             width: "100%",
-            maxHeight: "360px",
+            maxHeight: "clamp(180px, 26vh, 240px)",
             display: "block",
             objectFit: "cover",
             filter: "contrast(105%) brightness(95%)"
