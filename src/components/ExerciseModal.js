@@ -26,15 +26,16 @@ export default function ExerciseModal({ exercise, onClose, onSelectExercise }) {
           borderRadius: "20px"
         }}
       >
-        <button className="xbtn" onClick={onClose} style={{ fontSize: "20px" }}>✕</button>
-
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
-          <span className="pill" style={{ borderColor: CATS[exercise.cat]?.c, color: CATS[exercise.cat]?.c }}>
-            <span className="d" style={{ background: CATS[exercise.cat]?.c }}></span>
-            {CATS[exercise.cat]?.n}
-          </span>
-          <span className={`pill lv${exercise.lv}`}>{"●".repeat(exercise.lv)} L{exercise.lv}</span>
-          <span className="pill">🧰 {exercise.eq}</span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px", marginBottom: "8px" }}>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", alignItems: "center", flex: 1, minWidth: 0 }}>
+            <span className="pill" style={{ borderColor: CATS[exercise.cat]?.c, color: CATS[exercise.cat]?.c }}>
+              <span className="d" style={{ background: CATS[exercise.cat]?.c }}></span>
+              {CATS[exercise.cat]?.n}
+            </span>
+            <span className={`pill lv${exercise.lv}`}>{"●".repeat(exercise.lv)} L{exercise.lv}</span>
+            <span className="pill">🧰 {exercise.eq}</span>
+          </div>
+          <button className="xbtn" onClick={onClose} aria-label="Close">✕</button>
         </div>
 
         <h3 style={{ marginTop: "12px", fontSize: "22px", fontWeight: "900", color: "#fff" }}>
