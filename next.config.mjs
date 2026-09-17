@@ -25,7 +25,7 @@ const nextConfig = {
         ]
       },
       {
-        source: "/illustrations/:all*(jpg|jpeg|png|webp)",
+        source: "/reference/:all*(jpg|jpeg|png|webp)",
         headers: [
           {
             key: "Cache-Control",
@@ -34,7 +34,7 @@ const nextConfig = {
         ]
       },
       {
-        source: "/images/:all*(jpg|jpeg|png|webp)",
+        source: "/banners/:all*(jpg|jpeg|png|webp)",
         headers: [
           {
             key: "Cache-Control",
