@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useFitness } from "@/context/FitnessContext";
 import { EXDB } from "@/data/db";
 import { haptics } from "@/lib/haptics";
+import { speakCoach, stopCoach } from "@/lib/coachVoice";
 import FlexCardModal from "@/components/FlexCardModal";
 
 const EXERCISE_MEDIA = {
@@ -54,6 +55,25 @@ export default function WorkoutPlayer() {
   const [showQuitConfirm, setShowQuitConfirm] = useState(false);
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [earnedXp, setEarnedXp] = useState(0);
+  const [voiceCoach, setVoiceCoach] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("forge_voice_coach");
+      return saved !== null ? saved === "true" : true;
+    }
+    return true;
+  });
+
+  const toggleVoiceCoach = () => {
+    setVoiceCoach((prev) => {
+      const nextVal = !prev;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("forge_voice_coach", String(nextVal));
+      }
+      if (!nextVal) stopCoach();
+      else speakCoach("Voice coach enabled", true);
+      return nextVal;
+    });
+  };
 
   const videoRef = useRef(null);
 
@@ -117,10 +137,29 @@ export default function WorkoutPlayer() {
 
   // Video playback speed
   useEffect(() => {
+    return () => {
+      stopCoach();
+    };
+  }, []);
+
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = videoSlowMo ? 0.5 : 1.0;
     }
   }, [videoSlowMo, stepIdx]);
+
+  // Voice coaching guidance on step transition
+  useEffect(() => {
+    if (!activeSession || isDone || !currentStep) return;
+
+    if (currentStep.type === "prep") {
+      speakCoach(`Get ready for ${currentEx.n}. Set ${currentStep.setNum} of ${currentStep.totalSets}.`, voiceCoach);
+    } else if (currentStep.type === "work") {
+      speakCoach(`Begin. ${currentStep.label}.`, voiceCoach);
+    } else if (currentStep.type === "rest") {
+      speakCoach(`Rest and breathe. ${currentStep.duration} seconds.`, voiceCoach);
+    }
+  }, [stepIdx, isDone, activeSession, voiceCoach]);
 
   // Interval timer tick
   useEffect(() => {
@@ -131,6 +170,11 @@ export default function WorkoutPlayer() {
         if (prev <= 1) {
           handleStepComplete();
           return 0;
+        }
+
+        // Halfway motivational cue during longer work sets
+        if (currentStep?.type === "work" && currentStep?.duration >= 20 && prev === Math.floor(currentStep.duration / 2)) {
+          speakCoach("Halfway there. Keep your form.", voiceCoach);
         }
 
         // 3-2-1 Audio & Haptic Cues
@@ -147,7 +191,7 @@ export default function WorkoutPlayer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [activeSession, isDone, isRunning, stepIdx, currentStep]);
+  }, [activeSession, isDone, isRunning, stepIdx, currentStep, voiceCoach]);
 
   const handleStepComplete = () => {
     if (currentStep?.type === "work") {
@@ -169,6 +213,7 @@ export default function WorkoutPlayer() {
     setIsRunning(false);
     haptics.success();
     playBeep(1320, 0.5);
+    speakCoach("Session complete! Beautiful work today.", voiceCoach);
 
     const elapsedMins = Math.max(1, Math.round((Date.now() - startTime) / 60000));
     addLog({
@@ -343,6 +388,20 @@ export default function WorkoutPlayer() {
 
             <div style={{ display: "flex", gap: "6px" }}>
               <button
+                onClick={toggleVoiceCoach}
+                className="btn sm gh"
+                style={{
+                  fontSize: "10px",
+                  padding: "3px 8px",
+                  background: voiceCoach ? "rgba(255, 112, 166, 0.25)" : "rgba(0,0,0,0.6)",
+                  borderColor: voiceCoach ? "var(--acc)" : "rgba(255,255,255,0.15)",
+                  color: voiceCoach ? "var(--acc)" : "var(--tx-dim)"
+                }}
+                title="Toggle Soft Voice Guidance"
+              >
+                {voiceCoach ? "🎙️ Voice: ON" : "🔇 Voice: OFF"}
+              </button>
+              <button
                 onClick={() => setShowPhotoModal(true)}
                 className="btn sm gh"
                 style={{ fontSize: "10px", padding: "3px 8px", background: "rgba(0,0,0,0.6)" }}
@@ -461,6 +520,7 @@ export default function WorkoutPlayer() {
             className="btn"
             style={{ justifyContent: "center", background: isRunning ? "var(--p2)" : "linear-gradient(135deg, #ff70a6 0%, #ff85a1 100%)", color: isRunning ? "var(--tx)" : "#000", fontWeight: "900", border: isRunning ? "1px solid var(--ln)" : "none" }}
             onClick={() => {
+              if (isRunning) stopCoach();
               setIsRunning(!isRunning);
               haptics.light();
             }}
@@ -470,7 +530,10 @@ export default function WorkoutPlayer() {
 
           <button
             className="btn gh"
-            onClick={handleStepComplete}
+            onClick={() => {
+              stopCoach();
+              handleStepComplete();
+            }}
             style={{ justifyContent: "center", borderColor: "var(--acc)", color: "var(--acc)" }}
           >
             Skip ⏭
@@ -495,6 +558,7 @@ export default function WorkoutPlayer() {
                 style={{ background: "#ff4d4d" }}
                 onClick={() => {
                   setShowQuitConfirm(false);
+                  stopCoach();
                   setActiveSession(null);
                 }}
               >
