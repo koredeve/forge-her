@@ -35,12 +35,50 @@ const HER_VIDEOS = {
   default: "/videos/pushup.mp4"
 };
 
+const HER_IMAGES = {
+  vacuum: "/reference/vacuum.jpg",
+  deadbug: "/reference/deadbug.jpg",
+  hipdip: "/reference/deadbug.jpg",
+  flutter: "/reference/deadbug.jpg",
+  situp: "/reference/deadbug.jpg",
+  birddog: "/reference/donkey.jpg",
+  russiantwist: "/reference/deadbug.jpg",
+  plank: "/reference/pushup.jpg",
+  sidep: "/reference/deadbug.jpg",
+  glutebridge: "/reference/glutebridge.jpg",
+  donkey: "/reference/donkey.jpg",
+  hydrant: "/reference/hydrant.jpg",
+  clamshell: "/reference/hydrant.jpg",
+  curtsy: "/reference/glutebridge.jpg",
+  frogpump: "/reference/glutebridge.jpg",
+  bulg: "/banners/foundation.jpg",
+  squat: "/banners/foundation.jpg",
+  calf: "/banners/foundation.jpg",
+  chestprayer: "/reference/chestprayer.jpg",
+  inclinepush: "/reference/pushup.jpg",
+  pushup: "/reference/pushup.jpg",
+  kneepush: "/reference/pushup.jpg",
+  tricepdip: "/reference/tricepdip.jpg",
+  shouldertap: "/reference/pushup.jpg",
+  pikepush: "/reference/pushup.jpg",
+  doorwayrow: "/reference/tricepdip.jpg",
+  mountainclimber: "/reference/pushup.jpg",
+  flye: "/reference/chestprayer.jpg",
+  cobra: "/reference/cobra.jpg",
+  wallslide: "/reference/cobra.jpg",
+  superman: "/reference/cobra.jpg",
+  dog: "/reference/cobra.jpg",
+  default: "/reference/pushup.jpg"
+};
+
 export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category }) {
   const [playbackRate, setPlaybackRate] = useState(1);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [showPhoto, setShowPhoto] = useState(false);
   const videoRef = useRef(null);
 
   const videoSrc = HER_VIDEOS[exerciseId] || HER_VIDEOS.default;
+  const imageSrc = HER_IMAGES[exerciseId] || HER_IMAGES.default;
 
   const toggleSpeed = () => {
     const nextRate = playbackRate === 1 ? 0.5 : 1;
@@ -73,21 +111,53 @@ export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category
         boxShadow: "0 8px 32px rgba(0,0,0,0.6)"
       }}
     >
-      <video
-        ref={videoRef}
-        src={videoSrc}
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{
-          width: "100%",
-          maxHeight: "360px",
-          display: "block",
-          objectFit: "cover",
-          filter: "contrast(105%) brightness(95%)"
-        }}
-      />
+      {showPhoto ? (
+        <div style={{ position: "relative", width: "100%", height: "260px" }}>
+          <img
+            src={imageSrc}
+            alt={exerciseName || "Biomechanical Reference"}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block"
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "10px",
+              left: "10px",
+              background: "rgba(13, 15, 18, 0.85)",
+              backdropFilter: "blur(6px)",
+              padding: "4px 10px",
+              borderRadius: "8px",
+              fontSize: "11px",
+              color: "var(--acc)",
+              fontWeight: "800"
+            }}
+          >
+            📸 8K BIOMECHANICS REFERENCE
+          </div>
+        </div>
+      ) : (
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          poster={imageSrc}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: "100%",
+            maxHeight: "360px",
+            display: "block",
+            objectFit: "cover",
+            filter: "contrast(105%) brightness(95%)"
+          }}
+        />
+      )}
 
       {/* Floating Controls Bar */}
       <div
@@ -106,19 +176,37 @@ export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category
           border: "1px solid rgba(255, 255, 255, 0.1)"
         }}
       >
-        <button
-          onClick={togglePlay}
-          style={{
-            background: "none",
-            border: "none",
-            color: "#fff",
-            fontSize: "14px",
-            cursor: "pointer",
-            fontWeight: "700"
-          }}
-        >
-          {isPlaying ? "⏸ Pause" : "▶ Play"}
-        </button>
+        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <button
+            onClick={togglePlay}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#fff",
+              fontSize: "13px",
+              cursor: "pointer",
+              fontWeight: "700"
+            }}
+          >
+            {isPlaying ? "⏸ Pause" : "▶ Play"}
+          </button>
+
+          <button
+            onClick={() => setShowPhoto(!showPhoto)}
+            style={{
+              background: showPhoto ? "var(--acc)" : "rgba(255,255,255,0.1)",
+              color: showPhoto ? "#0d0f12" : "#fff",
+              border: "none",
+              borderRadius: "6px",
+              padding: "3px 8px",
+              fontSize: "11px",
+              fontWeight: "800",
+              cursor: "pointer"
+            }}
+          >
+            {showPhoto ? "🎬 Video Loop" : "📷 Photo"}
+          </button>
+        </div>
 
         <span style={{ fontSize: "11px", color: "var(--mut)", fontWeight: "600" }}>
           60 FPS HD Form
@@ -137,7 +225,7 @@ export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category
             cursor: "pointer"
           }}
         >
-          {playbackRate}x {playbackRate === 0.5 ? "Slow-Mo" : ""}
+          {playbackRate}x {playbackRate === 0.5 ? "Slow" : ""}
         </button>
       </div>
     </div>

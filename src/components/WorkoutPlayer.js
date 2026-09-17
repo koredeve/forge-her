@@ -6,39 +6,39 @@ import { haptics } from "@/lib/haptics";
 import FlexCardModal from "@/components/FlexCardModal";
 
 const EXERCISE_MEDIA = {
-  vacuum: { img: "/illustrations/lsit.jpg", video: "/videos/hollow.mp4" },
-  deadbug: { img: "/illustrations/lsit.jpg", video: "/videos/hollow.mp4" },
-  hipdip: { img: "/illustrations/pullup.jpg", video: "/videos/sidep.mp4" },
-  flutter: { img: "/illustrations/lsit.jpg", video: "/videos/legraise.mp4" },
-  situp: { img: "/illustrations/lsit.jpg", video: "/videos/hollow.mp4" },
-  birddog: { img: "/illustrations/pullup.jpg", video: "/videos/dog.mp4" },
-  russiantwist: { img: "/illustrations/pullup.jpg", video: "/videos/sidep.mp4" },
-  plank: { img: "/illustrations/pullup.jpg", video: "/videos/plank.mp4" },
-  sidep: { img: "/illustrations/pullup.jpg", video: "/videos/sidep.mp4" },
-  glutebridge: { img: "/illustrations/pistol.jpg", video: "/videos/squat.mp4" },
-  donkey: { img: "/illustrations/pistol.jpg", video: "/videos/bulg.mp4" },
-  hydrant: { img: "/illustrations/pistol.jpg", video: "/videos/bulg.mp4" },
-  clamshell: { img: "/illustrations/pistol.jpg", video: "/videos/squat.mp4" },
-  curtsy: { img: "/illustrations/pistol.jpg", video: "/videos/bulg.mp4" },
-  frogpump: { img: "/illustrations/pistol.jpg", video: "/videos/squat.mp4" },
-  bulg: { img: "/illustrations/pistol.jpg", video: "/videos/bulg.mp4" },
-  squat: { img: "/illustrations/pistol.jpg", video: "/videos/squat.mp4" },
-  calf: { img: "/illustrations/pistol.jpg", video: "/videos/calf.mp4" },
-  chestprayer: { img: "/illustrations/pullup.jpg", video: "/videos/pushup.mp4" },
-  inclinepush: { img: "/illustrations/pullup.jpg", video: "/videos/pushup.mp4" },
-  pushup: { img: "/illustrations/pullup.jpg", video: "/videos/pushup.mp4" },
-  kneepush: { img: "/illustrations/pullup.jpg", video: "/videos/pushup.mp4" },
-  tricepdip: { img: "/illustrations/pullup.jpg", video: "/videos/dip.mp4" },
-  shouldertap: { img: "/illustrations/pullup.jpg", video: "/videos/plank.mp4" },
-  pikepush: { img: "/illustrations/hstand.jpg", video: "/videos/pike.mp4" },
-  doorwayrow: { img: "/illustrations/pullup.jpg", video: "/videos/row.mp4" },
-  mountainclimber: { img: "/illustrations/pullup.jpg", video: "/videos/burpee.mp4" },
-  flye: { img: "/illustrations/pullup.jpg", video: "/videos/diamond.mp4" },
-  cobra: { img: "/illustrations/pullup.jpg", video: "/videos/dloc.mp4" },
-  wallslide: { img: "/illustrations/hstand.jpg", video: "/videos/dloc.mp4" },
-  superman: { img: "/illustrations/pullup.jpg", video: "/videos/hollow.mp4" },
-  dog: { img: "/illustrations/hstand.jpg", video: "/videos/dog.mp4" },
-  default: { img: "/illustrations/pullup.jpg", video: "/videos/pushup.mp4" }
+  vacuum: { img: "/reference/vacuum.jpg", video: "/videos/hollow.mp4" },
+  deadbug: { img: "/reference/deadbug.jpg", video: "/videos/hollow.mp4" },
+  hipdip: { img: "/reference/deadbug.jpg", video: "/videos/sidep.mp4" },
+  flutter: { img: "/reference/deadbug.jpg", video: "/videos/legraise.mp4" },
+  situp: { img: "/reference/deadbug.jpg", video: "/videos/hollow.mp4" },
+  birddog: { img: "/reference/donkey.jpg", video: "/videos/dog.mp4" },
+  russiantwist: { img: "/reference/deadbug.jpg", video: "/videos/sidep.mp4" },
+  plank: { img: "/reference/pushup.jpg", video: "/videos/plank.mp4" },
+  sidep: { img: "/reference/deadbug.jpg", video: "/videos/sidep.mp4" },
+  glutebridge: { img: "/reference/glutebridge.jpg", video: "/videos/squat.mp4" },
+  donkey: { img: "/reference/donkey.jpg", video: "/videos/bulg.mp4" },
+  hydrant: { img: "/reference/hydrant.jpg", video: "/videos/bulg.mp4" },
+  clamshell: { img: "/reference/hydrant.jpg", video: "/videos/squat.mp4" },
+  curtsy: { img: "/reference/glutebridge.jpg", video: "/videos/bulg.mp4" },
+  frogpump: { img: "/reference/glutebridge.jpg", video: "/videos/squat.mp4" },
+  bulg: { img: "/banners/foundation.jpg", video: "/videos/bulg.mp4" },
+  squat: { img: "/banners/foundation.jpg", video: "/videos/squat.mp4" },
+  calf: { img: "/banners/foundation.jpg", video: "/videos/calf.mp4" },
+  chestprayer: { img: "/reference/chestprayer.jpg", video: "/videos/pushup.mp4" },
+  inclinepush: { img: "/reference/pushup.jpg", video: "/videos/pushup.mp4" },
+  pushup: { img: "/reference/pushup.jpg", video: "/videos/pushup.mp4" },
+  kneepush: { img: "/reference/pushup.jpg", video: "/videos/pushup.mp4" },
+  tricepdip: { img: "/reference/tricepdip.jpg", video: "/videos/dip.mp4" },
+  shouldertap: { img: "/reference/pushup.jpg", video: "/videos/plank.mp4" },
+  pikepush: { img: "/reference/pushup.jpg", video: "/videos/pike.mp4" },
+  doorwayrow: { img: "/reference/tricepdip.jpg", video: "/videos/row.mp4" },
+  mountainclimber: { img: "/reference/pushup.jpg", video: "/videos/burpee.mp4" },
+  flye: { img: "/reference/chestprayer.jpg", video: "/videos/diamond.mp4" },
+  cobra: { img: "/reference/cobra.jpg", video: "/videos/dloc.mp4" },
+  wallslide: { img: "/reference/cobra.jpg", video: "/videos/dloc.mp4" },
+  superman: { img: "/reference/cobra.jpg", video: "/videos/hollow.mp4" },
+  dog: { img: "/reference/cobra.jpg", video: "/videos/dog.mp4" },
+  default: { img: "/reference/pushup.jpg", video: "/videos/pushup.mp4" }
 };
 
 export default function WorkoutPlayer() {
@@ -52,6 +52,7 @@ export default function WorkoutPlayer() {
   const [startTime, setStartTime] = useState(Date.now());
   const [videoSlowMo, setVideoSlowMo] = useState(false);
   const [showQuitConfirm, setShowQuitConfirm] = useState(false);
+  const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [earnedXp, setEarnedXp] = useState(0);
 
   const videoRef = useRef(null);
@@ -340,15 +341,47 @@ export default function WorkoutPlayer() {
               {isPrep ? "🟡 GET READY" : isWork ? "🌸 SCULPT & PERFORM" : "🟢 REST & RECOVER"}
             </span>
 
-            <button
-              onClick={() => setVideoSlowMo(!videoSlowMo)}
-              className="btn sm gh"
-              style={{ fontSize: "10px", padding: "3px 8px", background: "rgba(0,0,0,0.6)" }}
-            >
-              {videoSlowMo ? "⚡ 1.0x" : "🐢 0.5x Slow-Mo"}
-            </button>
+            <div style={{ display: "flex", gap: "6px" }}>
+              <button
+                onClick={() => setShowPhotoModal(true)}
+                className="btn sm gh"
+                style={{ fontSize: "10px", padding: "3px 8px", background: "rgba(0,0,0,0.6)" }}
+              >
+                📷 Form Photo
+              </button>
+              <button
+                onClick={() => setVideoSlowMo(!videoSlowMo)}
+                className="btn sm gh"
+                style={{ fontSize: "10px", padding: "3px 8px", background: "rgba(0,0,0,0.6)" }}
+              >
+                {videoSlowMo ? "⚡ 1.0x" : "🐢 0.5x"}
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Static Reference Photo Modal */}
+        {showPhotoModal && (
+          <div className="ov show" onClick={() => setShowPhotoModal(false)} style={{ zIndex: 1300 }}>
+            <div className="sheet" style={{ maxWidth: "560px", background: "#0d0f12", border: "1.5px solid var(--acc)", borderRadius: "18px", padding: "18px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                <div>
+                  <span className="cali-acc" style={{ fontSize: "10px" }}>BIOMECHANICAL REFERENCE</span>
+                  <h4 style={{ margin: "2px 0 0", fontSize: "17px" }}>{currentEx.n}</h4>
+                </div>
+                <button className="xbtn" onClick={() => setShowPhotoModal(false)}>✕</button>
+              </div>
+              <img
+                src={media.img}
+                alt={currentEx.n}
+                style={{ width: "100%", height: "280px", objectFit: "cover", borderRadius: "12px", border: "1px solid var(--ln)", display: "block" }}
+              />
+              <p className="mut sm" style={{ marginTop: "10px", fontSize: "12px" }}>
+                🎯 <b>Target:</b> {currentEx.ms || "Optimal execution posture"}
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Current Movement Header & Info */}
         <div

@@ -305,18 +305,25 @@ h1.pg em {
   grid-template-columns: repeat(2, 1fr);
 }
 .g3 {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
 }
 .g4 {
   grid-template-columns: repeat(4, 1fr);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1080px) and (min-width: 681px) {
+  .g3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
   .g2, .g3 {
     grid-template-columns: 1fr;
   }
   .g4 {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 }
 

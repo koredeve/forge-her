@@ -29,6 +29,17 @@ const FAQS = [
   }
 ];
 
+const WORKOUT_PICTURES = {
+  w1: "/reference/vacuum.jpg",
+  w2: "/reference/glutebridge.jpg",
+  w3: "/reference/cobra.jpg",
+  w4: "/reference/chestprayer.jpg",
+  w5: "/reference/donkey.jpg",
+  w6: "/banners/hero.jpg",
+  w7: "/reference/pushup.jpg",
+  w8: "/reference/tricepdip.jpg"
+};
+
 export default function Home() {
   const { logs, getStreak, getSkillsPct } = useFitness();
   const { user, isPro, trialClaimed, claimFreeTrial, openAuthModal } = useAuth();
@@ -263,48 +274,87 @@ export default function Home() {
             className="card"
             style={{
               cursor: "pointer",
-              padding: "16px",
+              padding: "0",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               border: "1px solid var(--ln)",
               background: "var(--p)",
+              overflow: "hidden",
+              borderRadius: "18px",
               transition: "transform 0.15s ease, border-color 0.15s ease"
             }}
             onClick={() => setPreviewWorkout(w)}
           >
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+            {/* Visual Picture Reference Header */}
+            <div style={{ position: "relative", width: "100%", height: "145px", overflow: "hidden", background: "#111" }}>
+              <img
+                src={WORKOUT_PICTURES[w.id] || "/banners/hero.jpg"}
+                alt={w.n}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block"
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(13,15,18,0.85) 100%)"
+                }}
+              />
+              <div style={{ position: "absolute", top: "10px", left: "10px", right: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span
                   className="pill sm"
                   style={{
+                    background: "rgba(13, 15, 18, 0.85)",
+                    backdropFilter: "blur(6px)",
                     borderColor: CATS[w.cat]?.c || "var(--acc)",
                     color: CATS[w.cat]?.c || "var(--acc)",
-                    fontSize: "10.5px"
+                    fontSize: "10px",
+                    padding: "3px 8px"
                   }}
                 >
                   {CATS[w.cat]?.n || w.cat}
                 </span>
-                <span className="mut sm" style={{ fontSize: "11.5px" }}>⏱️ {w.mins} mins</span>
+                <span
+                  className="pill sm"
+                  style={{
+                    background: "rgba(13, 15, 18, 0.85)",
+                    backdropFilter: "blur(6px)",
+                    color: "#fff",
+                    fontSize: "10.5px",
+                    padding: "3px 8px"
+                  }}
+                >
+                  ⏱️ {w.mins} mins
+                </span>
               </div>
-              <h3 style={{ fontSize: "16.5px", fontWeight: "800", margin: "4px 0 6px" }}>{w.n}</h3>
-              <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4" }}>{w.tag}</p>
             </div>
 
-            <div style={{ marginTop: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span className="mut sm" style={{ fontSize: "11px" }}>{w.ex.length} exercises</span>
-              <button
-                className="btn sm"
-                style={{
-                  padding: "6px 14px",
-                  fontSize: "12px",
-                  background: "rgba(255, 112, 166, 0.15)",
-                  color: "var(--acc)",
-                  border: "1px solid var(--acc)"
-                }}
-              >
-                Preview ▶
-              </button>
+            <div style={{ padding: "14px 16px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <h3 style={{ fontSize: "16px", fontWeight: "800", margin: "0 0 4px" }}>{w.n}</h3>
+                <p className="mut sm" style={{ fontSize: "12px", lineHeight: "1.4", margin: 0 }}>{w.tag}</p>
+              </div>
+
+              <div style={{ marginTop: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span className="mut sm" style={{ fontSize: "11px" }}>{w.ex.length} exercises</span>
+                <button
+                  className="btn sm"
+                  style={{
+                    padding: "6px 14px",
+                    fontSize: "12px",
+                    background: "rgba(255, 112, 166, 0.15)",
+                    color: "var(--acc)",
+                    border: "1px solid var(--acc)"
+                  }}
+                >
+                  Preview ▶
+                </button>
+              </div>
             </div>
           </div>
         ))}
