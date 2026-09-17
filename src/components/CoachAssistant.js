@@ -148,32 +148,15 @@ Try asking me about:
     <>
       {/* Floating Coach Launcher Bubble */}
       <button
+        className="coach-launcher-btn"
         onClick={() => {
           haptics.light();
           setIsOpen(!isOpen);
         }}
         aria-label="Open Coach HER"
-        style={{
-          position: "fixed",
-          bottom: "76px",
-          right: "18px",
-          zIndex: 998,
-          background: "linear-gradient(135deg, #ff70a6 0%, #ff85a1 100%)",
-          color: "#0d0f12",
-          border: "2px solid #ffd166",
-          borderRadius: "999px",
-          padding: "10px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          fontWeight: "800",
-          fontSize: "13.5px",
-          boxShadow: "0 8px 24px rgba(255, 112, 166, 0.4)",
-          cursor: "pointer"
-        }}
       >
-        <span style={{ fontSize: "18px" }}>✨</span>
-        <span>Coach HER</span>
+        <span className="coach-icon">✨</span>
+        <span className="coach-label">Coach HER</span>
       </button>
 
       {/* Slide-Up Chat Drawer Modal */}

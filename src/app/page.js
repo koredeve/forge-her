@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { CATS, WORKOUTS, SKILLS } from "@/data/db";
 import { useFitness } from "@/context/FitnessContext";
 import { useAuth } from "@/context/AuthContext";
 import WorkoutModal from "@/components/WorkoutModal";
+import WelcomeModal from "@/components/WelcomeModal";
 
 const FAQS = [
   {
@@ -46,6 +47,17 @@ export default function Home() {
   const [previewWorkout, setPreviewWorkout] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
   const [isClaimingTrial, setIsClaimingTrial] = useState(false);
+  const [welcomeOpen, setWelcomeOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hasSeen = localStorage.getItem("has_seen_forge_her_welcome");
+      if (!hasSeen) {
+        setWelcomeOpen(true);
+        localStorage.setItem("has_seen_forge_her_welcome", "true");
+      }
+    }
+  }, []);
 
   const streak = user ? getStreak() : 0;
   const mastery = user ? getSkillsPct() : 0;
@@ -89,6 +101,30 @@ export default function Home() {
 
   return (
     <div className="vw active" id="v-home">
+      {/* Welcome & Tour Quick Trigger Banner */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
+        <button
+          onClick={() => setWelcomeOpen(true)}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "6px 14px",
+            borderRadius: "999px",
+            background: "rgba(255, 112, 166, 0.12)",
+            border: "1px solid rgba(255, 112, 166, 0.35)",
+            color: "var(--acc)",
+            fontSize: "12px",
+            fontWeight: "700",
+            cursor: "pointer",
+            transition: "0.15s"
+          }}
+        >
+          <span>✨</span>
+          <span>New to Calisthenics? View 60s Goddess Blueprint & Tour →</span>
+        </button>
+      </div>
+
       {/* Luxury Feminine Hero Banner */}
       <div
         style={{
@@ -96,8 +132,9 @@ export default function Home() {
           borderRadius: "24px",
           overflow: "hidden",
           border: "1.5px solid rgba(255, 112, 166, 0.35)",
-          marginBottom: "24px",
-          background: "linear-gradient(135deg, #1f141d 0%, #0d0f12 100%)"
+          marginBottom: "20px",
+          background: "linear-gradient(135deg, #1f141d 0%, #0d0f12 100%)",
+          boxShadow: "0 12px 36px rgba(0, 0, 0, 0.5)"
         }}
       >
         <img
@@ -105,9 +142,9 @@ export default function Home() {
           alt="FORGE HER Athlete"
           style={{
             width: "100%",
-            height: "380px",
+            height: "clamp(270px, 48vh, 380px)",
             objectFit: "cover",
-            opacity: 0.35,
+            opacity: 0.32,
             filter: "contrast(115%) brightness(90%) hue-rotate(310deg)",
             display: "block"
           }}
@@ -117,22 +154,22 @@ export default function Home() {
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(180deg, rgba(13, 15, 18, 0.2) 0%, rgba(13, 15, 18, 0.95) 100%)",
+            background: "linear-gradient(180deg, rgba(13, 15, 18, 0.15) 0%, rgba(13, 15, 18, 0.96) 100%)",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            padding: "24px 28px"
+            padding: "clamp(16px, 4vw, 28px)"
           }}
         >
-          <div className="kick" style={{ alignSelf: "flex-start", marginBottom: "8px", color: "var(--acc)" }}>
+          <div className="kick" style={{ alignSelf: "flex-start", marginBottom: "6px", color: "var(--acc)", fontSize: "11.5px" }}>
             🌸 TODAY · {dateStr} {user ? `· ✨ ${user.displayName || user.email.split("@")[0]}` : "· ⚡ PREVIEW MODE"}
           </div>
 
-          <h1 className="pg" style={{ margin: "4px 0" }}>
+          <h1 className="pg" style={{ margin: "2px 0 6px", fontSize: "clamp(26px, 6.5vw, 42px)", lineHeight: "1.1" }}>
             Sculpt your<br />
             <em>silhouette.</em>
           </h1>
-          <p className="sub" style={{ margin: "6px 0 16px", maxWidth: "620px", color: "var(--tx-dim)" }}>
+          <p className="sub" style={{ margin: "0 0 16px", maxWidth: "600px", color: "var(--tx-dim)", fontSize: "clamp(12.5px, 3.2vw, 14px)", lineHeight: "1.45" }}>
             Feminine calisthenics & biomechanics: strict floor push-up mastery, cinched waistline with deep TVA vacuums, hourglass glute curves, and poised posture.
           </p>
 
@@ -143,12 +180,25 @@ export default function Home() {
               style={{
                 background: "linear-gradient(135deg, #ff70a6 0%, #ff85a1 100%)",
                 color: "#0d0f12",
-                fontWeight: "800"
+                fontWeight: "800",
+                fontSize: "13.5px",
+                padding: "11px 18px",
+                borderRadius: "14px",
+                boxShadow: "0 4px 16px rgba(255, 112, 166, 0.35)"
               }}
             >
               ▶ {user ? "Start: Snatched Corset Core" : "Sign In to Begin Sculpting"}
             </button>
-            <Link href="/sculpt" className="btn gh" style={{ borderColor: "rgba(255, 112, 166, 0.4)" }}>
+            <Link
+              href="/sculpt"
+              className="btn gh"
+              style={{
+                borderColor: "rgba(255, 112, 166, 0.4)",
+                fontSize: "13px",
+                padding: "11px 16px",
+                borderRadius: "14px"
+              }}
+            >
               🌸 Explore 5 Sculpt Ladders
             </Link>
           </div>
@@ -503,6 +553,13 @@ export default function Home() {
           onClose={() => setPreviewWorkout(null)}
         />
       )}
+
+      {/* Luxury Feminine Welcome & Onboarding Modal */}
+      <WelcomeModal
+        isOpen={welcomeOpen}
+        onClose={() => setWelcomeOpen(false)}
+        onStartWorkout={handleStartWorkout}
+      />
     </div>
   );
 }

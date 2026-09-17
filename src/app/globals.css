@@ -125,22 +125,28 @@ header {
 .mobile-drawer-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(8px);
-  z-index: 150;
+  background: rgba(5, 7, 10, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1050;
   display: flex;
   justify-content: flex-end;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .mobile-drawer {
-  background: var(--p2);
-  width: 85%;
-  max-width: 320px;
+  background: linear-gradient(180deg, #18141d 0%, #0d0f12 100%);
+  width: 86%;
+  max-width: 340px;
   height: 100%;
-  padding: 24px 20px;
-  border-left: 1px solid var(--ln);
+  padding: 20px 18px calc(env(safe-area-inset-bottom, 12px) + 24px);
+  border-left: 1.5px solid rgba(255, 112, 166, 0.3);
   overflow-y: auto;
-  animation: slideLeft 0.2s ease-out;
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: slideLeft 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @keyframes slideLeft {
   from {
@@ -148,6 +154,14 @@ header {
   }
   to {
     transform: translateX(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -162,7 +176,7 @@ header {
   transition: 0.15s ease;
 }
 .drawer-link:hover, .drawer-link.on {
-  background: rgba(255, 107, 44, 0.12);
+  background: rgba(255, 112, 166, 0.14);
   color: var(--acc);
 }
 
@@ -173,10 +187,12 @@ header {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  background: rgba(14, 17, 21, 0.96);
-  border-top: 1px solid var(--ln);
-  padding: 6px 12px calc(env(safe-area-inset-bottom, 10px) + 6px);
+  z-index: 1000;
+  background: rgba(11, 13, 16, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 112, 166, 0.22);
+  padding: 8px 12px calc(env(safe-area-inset-bottom, 12px) + 6px);
   justify-content: space-around;
   align-items: center;
 }
@@ -192,20 +208,58 @@ header {
   flex: 1;
   padding: 4px 0;
   transition: 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .bottom-tab .tab-icon {
-  font-size: 19px;
+  font-size: 20px;
   line-height: 1;
+  transition: transform 0.15s ease;
 }
 .bottom-tab .tab-label {
   font-size: 10.5px;
   font-weight: 700;
+  letter-spacing: 0.01em;
 }
 .bottom-tab.active {
-  color: var(--acc);
+  color: #fff;
 }
 .bottom-tab.active .tab-icon {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  filter: drop-shadow(0 2px 8px rgba(255, 112, 166, 0.7));
+}
+.bottom-tab.active .tab-label {
+  color: var(--acc);
+}
+
+/* Coach HER Floating Launcher Button */
+.coach-launcher-btn {
+  position: fixed;
+  bottom: 84px;
+  right: 20px;
+  z-index: 990;
+  background: linear-gradient(135deg, #ff70a6 0%, #ff85a1 100%);
+  color: "#0d0f12";
+  color: #0d0f12;
+  border: 2px solid #ffd166;
+  border-radius: 999px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 13.5px;
+  box-shadow: 0 8px 24px rgba(255, 112, 166, 0.45);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.coach-launcher-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 112, 166, 0.6);
+}
+.coach-launcher-btn:active {
+  transform: scale(0.96);
 }
 
 @media (max-width: 860px) {
@@ -213,14 +267,24 @@ header {
     display: none !important;
   }
   .mobile-burger-btn {
-    display: block;
+    display: flex !important;
   }
   .mobile-bottom-bar {
-    display: flex;
+    display: flex !important;
   }
   main {
-    padding-top: 76px !important;
-    padding-bottom: 110px !important;
+    padding-top: 72px !important;
+    padding-bottom: 124px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .coach-launcher-btn {
+    bottom: calc(env(safe-area-inset-bottom, 12px) + 72px);
+    right: 14px;
+    padding: 9px 14px;
+    font-size: 12.5px;
+    border-width: 1.5px;
+    box-shadow: 0 6px 20px rgba(255, 112, 166, 0.5);
   }
 }
 
