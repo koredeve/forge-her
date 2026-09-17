@@ -3,11 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const getAuthDomain = () => {
-  if (typeof window !== "undefined") {
-    if (window.location.hostname.endsWith(".vercel.app") || window.location.hostname.includes("forge")) {
-      return window.location.hostname;
-    }
-  }
   return process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "forge-fitness-a426e.firebaseapp.com";
 };
 
