@@ -13,7 +13,7 @@ const EXERCISE_MEDIA = {
   situp: { img: "/reference/deadbug.jpg", video: "/videos/deadbug.mp4" },
   birddog: { img: "/reference/donkey.jpg", video: "/videos/donkey.mp4" },
   russiantwist: { img: "/reference/deadbug.jpg", video: "/videos/deadbug.mp4" },
-  plank: { img: "/reference/pushup.jpg", video: "/videos/pushup.mp4" },
+  plank: { img: "/reference/plank.jpg", video: "/videos/plank.mp4" },
   sidep: { img: "/reference/deadbug.jpg", video: "/videos/deadbug.mp4" },
   glutebridge: { img: "/reference/glutebridge.jpg", video: "/videos/glutebridge.mp4" },
   donkey: { img: "/reference/donkey.jpg", video: "/videos/donkey.mp4" },
