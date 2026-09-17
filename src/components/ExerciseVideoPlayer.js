@@ -17,7 +17,7 @@ const HER_VIDEOS = {
   clamshell: "/videos/clamshell.mp4",
   curtsy: "/videos/curtsy.mp4",
   frogpump: "/videos/frogpump.mp4",
-  bulg: "/videos/glutebridge.mp4",
+  bulg: "/videos/bulg.mp4",
   squat: "/videos/squat.mp4",
   calf: "/videos/calf.mp4",
   chestprayer: "/videos/chestprayer.mp4",

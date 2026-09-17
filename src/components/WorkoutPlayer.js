@@ -21,7 +21,7 @@ const EXERCISE_MEDIA = {
   clamshell: { img: "/reference/clamshell.jpg", video: "/videos/clamshell.mp4" },
   curtsy: { img: "/reference/curtsy.jpg", video: "/videos/curtsy.mp4" },
   frogpump: { img: "/reference/frogpump.jpg", video: "/videos/frogpump.mp4" },
-  bulg: { img: "/reference/bulg.jpg", video: "/videos/glutebridge.mp4" },
+  bulg: { img: "/reference/bulg.jpg", video: "/videos/bulg.mp4" },
   squat: { img: "/reference/squat.jpg", video: "/videos/squat.mp4" },
   calf: { img: "/reference/calf.jpg", video: "/videos/calf.mp4" },
   chestprayer: { img: "/reference/chestprayer.jpg", video: "/videos/chestprayer.mp4" },
