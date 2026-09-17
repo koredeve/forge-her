@@ -1,10 +1,11 @@
 export const CATS = {
   tummy: { n: 'Snatched Waist & Core', c: '#ff70a6' },
   booty: { n: 'Hourglass Glutes & Hips', c: '#ff85a1' },
-  posture: { n: 'Posture & Back Align', c: '#ffd166' },
-  bust: { n: 'Bustline Lift & Upper', c: '#f39c12' },
+  upper: { n: 'Upper Body & Push-Ups', c: '#ffd166' },
+  posture: { n: 'Posture & Back Align', c: '#f39c12' },
+  bust: { n: 'Bustline Lift & Décolletage', c: '#e84393' },
   mobility: { n: 'Mobility & Pelvic Flow', c: '#3ed598' },
-  hiit: { n: 'Metabolic Fat Burn', c: '#ff3d68' }
+  hiit: { n: 'Metabolic Calisthenics', c: '#ff3d68' }
 };
 
 export const EXDB = [
@@ -318,7 +319,113 @@ export const EXDB = [
     prog: 'Single-Leg Calf Rise'
   },
 
-  // --- 3. Bustline Lift & Upper Toning ---
+  // --- 3. Upper Body & Push-Ups for Women ---
+  {
+    id: 'pushup',
+    n: 'Strict Floor Push-Up',
+    cat: 'upper',
+    lv: 2,
+    ms: 'Chest (Pectorals) · Triceps · Shoulders · Core',
+    eq: 'None',
+    d: 'The premier all-round upper-body builder for women. Firms the chest, tones the back of the arms (triceps), and forces rigid hollow-body core engagement.',
+    cu: [
+      'Hands slightly wider than shoulder width, fingers spread wide',
+      'Body locked in an unbroken straight plank line from heels to crown',
+      'Lower chest until it grazes the floor, elbows tracking at a 45-degree arrow angle',
+      'Press through the entire palm to full arm lockout'
+    ],
+    bd: ['Sagging hips or arching lower back', 'Flaring elbows 90 degrees wide'],
+    reg: 'Strict Knee Push-Up',
+    prog: 'Diamond Push-Up / Deficit Push-Up'
+  },
+  {
+    id: 'kneepush',
+    n: 'Strict Knee Push-Up (Volume Builder)',
+    cat: 'upper',
+    lv: 1,
+    ms: 'Upper Chest · Triceps · Front Shoulders',
+    eq: 'None',
+    d: 'Reduces ~35% of bodyweight load while maintaining exact upper-body pushing mechanics. Essential stepping stone to strict floor reps.',
+    cu: [
+      'Pivot from knees with hips tucked and glutes squeezed',
+      'Maintain straight line from knees through shoulders',
+      'Lower chest all the way to floor with 45° elbows'
+    ],
+    bd: ['Leaving butt sticking up in the air', 'Incomplete range of motion'],
+    reg: 'Incline Bench Push-Up',
+    prog: 'Strict Floor Push-Up'
+  },
+  {
+    id: 'tricepdip',
+    n: 'Bench / Chair Tricep Dip',
+    cat: 'upper',
+    lv: 1,
+    ms: 'Triceps (Anti-Batwing) · Anterior Deltoids',
+    eq: 'Chair or Low Bench',
+    d: 'Firms and tones the back of the arms (triceps) to eliminate arm flab while strengthening shoulder stability.',
+    cu: [
+      'Hands on chair edge beside hips, fingers pointing forward',
+      'Slide hips off edge, lower body until elbows reach 90 degrees',
+      'Keep back close to chair edge throughout descent',
+      'Press firmly through palms to full elbow extension'
+    ],
+    bd: ['Shoulders shrugging toward ears', 'Moving hips too far forward from chair'],
+    reg: 'Bent-Knee Bench Dip',
+    prog: 'Straight-Leg Bench Dip'
+  },
+  {
+    id: 'shouldertap',
+    n: 'Plank Shoulder Taps',
+    cat: 'upper',
+    lv: 2,
+    ms: 'Shoulders (Deltoids) · Anti-Rotation Core · Arms',
+    eq: 'None',
+    d: 'Tones rounded feminine shoulder caps while forcing the obliques and transverse abdominis to resist hip swivel.',
+    cu: [
+      'Start in high push-up plank, feet slightly wider than shoulder width',
+      'Tap opposite shoulder with hand in a calm, 2-second controlled tempo',
+      'Keep hips completely square to floor with zero side-to-side sway'
+    ],
+    bd: ['Rocking hips from side to side', 'Holding breath'],
+    reg: 'Knee Plank Shoulder Tap',
+    prog: 'Plank Shoulder Tap with 2s Hold'
+  },
+  {
+    id: 'pikepush',
+    n: 'Pike Push-Up (Shoulder Sculpt)',
+    cat: 'upper',
+    lv: 2,
+    ms: 'Deltoids (Shoulder Caps) · Triceps · Upper Back',
+    eq: 'None',
+    d: 'Shifts bodyweight directly over the shoulders. Creates beautiful capped shoulders that make the waist look visually smaller by contrast.',
+    cu: [
+      'Start in downward dog position with hips high in the air',
+      'Look between hands, lower crown of head forward toward floor',
+      'Push back and up along the diagonal to return to pike'
+    ],
+    bd: ['Flaring elbows out sideways', 'Dropping hips flat into regular pushup'],
+    reg: 'Down-Dog Shoulder Push',
+    prog: 'Feet-Elevated Pike Push-Up'
+  },
+  {
+    id: 'doorwayrow',
+    n: 'Doorframe / Towel Incline Row',
+    cat: 'upper',
+    lv: 1,
+    ms: 'Lats · Rhomboids · Biceps · Upper Back',
+    eq: 'Doorframe or Sturdy Post',
+    d: 'Horizontal pull that balances push-ups, strengthens the mid-back, tones the bra-line, and opens tight chest muscles.',
+    cu: [
+      'Grasp doorframe at chest height, lean back with straight arms',
+      'Pull chest forward to touch doorframe by driving elbows backward',
+      'Squeeze shoulder blades together at peak contraction'
+    ],
+    bd: ['Bending at hips instead of body leaning back', 'Using jerky momentum'],
+    reg: 'High-Angle Doorframe Row',
+    prog: 'Low-Angle Towel Row'
+  },
+
+  // --- 4. Bustline Lift & Upper Toning ---
   {
     id: 'chestprayer',
     n: 'Isometric Prayer Press (Bustline Lift)',
@@ -531,6 +638,36 @@ export const WORKOUTS = [
       { x: 'curtsy', s: 3, r: '10 / side', rest: 45 },
       { x: 'calf', s: 3, r: '20', rest: 30 }
     ]
+  },
+  {
+    id: 'w7',
+    n: 'Upper Body Tone & Push-Up Power',
+    cat: 'upper',
+    lv: 2,
+    mins: 20,
+    tag: 'Toned Arms · Push-Up Strength · Shoulder Caps',
+    ex: [
+      { x: 'kneepush', s: 3, r: '10', rest: 45 },
+      { x: 'tricepdip', s: 3, r: '12', rest: 45 },
+      { x: 'shouldertap', s: 3, r: '16', rest: 40 },
+      { x: 'pushup', s: 3, r: '6', rest: 60 },
+      { x: 'doorwayrow', s: 3, r: '12', rest: 45 }
+    ]
+  },
+  {
+    id: 'w8',
+    n: 'Total Body Goddess Recomp',
+    cat: 'upper',
+    lv: 2,
+    mins: 25,
+    tag: 'Full Body Calisthenics · Push-Ups & Glutes',
+    ex: [
+      { x: 'pushup', s: 3, r: '8', rest: 60 },
+      { x: 'squat', s: 3, r: '15', rest: 45 },
+      { x: 'glutebridge', s: 3, r: '15', rest: 45 },
+      { x: 'tricepdip', s: 3, r: '12', rest: 45 },
+      { x: 'vacuum', s: 3, sec: 25, rest: 30 }
+    ]
   }
 ];
 
@@ -588,10 +725,41 @@ export const PROGRAMS = [
       ['Sun', 'rest']
     ],
     tip: 'Consistency beats intensity. 20 focused minutes 4 times a week delivers permanent body recomposition.'
+  },
+  {
+    id: 'p4',
+    n: 'Goddess Push-Up & Upper Sculpt',
+    cat: 'upper',
+    lv: 2,
+    wks: '4 weeks',
+    focus: 'Build strict floor push-up power, firm the upper chest, eliminate arm flab with tricep dips, and tone the back.',
+    days: [
+      ['Mon', 'w7'],
+      ['Tue', 'w2'],
+      ['Wed', 'w1'],
+      ['Thu', 'rest'],
+      ['Fri', 'w7'],
+      ['Sat', 'w8'],
+      ['Sun', 'rest']
+    ],
+    tip: 'Control the descent! 3 seconds down on every push-up builds upper-body pressing strength 2x faster than fast reps.'
   }
 ];
 
 export const SKILLS = [
+  {
+    id: 'pushup',
+    icon: '💪',
+    n: 'Push-Up Mastery Ladder for Women',
+    lv: [
+      ['Wall Push-Ups · 3×15', 'Full range of motion, hands at chest height'],
+      ['Incline Bench Push-Ups · 3×12', 'Lowering chest to bench with 45° elbows'],
+      ['Strict Knee Push-Ups · 3×10', 'Rigid core, chest grazing floor on every rep'],
+      ['5-Second Negative Floor Push-Ups · 3×6', 'Controlled eccentric descent from toes'],
+      ['Strict Floor Push-Ups · 3×5', 'Clean dead-stop floor push-ups from toes'],
+      ['Push-Up Goddess Flow · 3×10', 'Chest-to-deck strict push-ups with locked hollow body']
+    ]
+  },
   {
     id: 'vacuum',
     icon: '⏳',
@@ -647,6 +815,7 @@ export const SKILLS = [
 ];
 
 export const TESTS = [
+  { id: 'pushup', n: 'Max Strict Floor Push-Ups', u: 'reps' },
   { id: 'vacuum', n: 'Max Stomach Vacuum', u: 'sec' },
   { id: 'glute', n: 'Max Single-Leg Glute Bridge', u: 'reps' },
   { id: 'plank', n: 'Max Forearm Plank', u: 'sec' },

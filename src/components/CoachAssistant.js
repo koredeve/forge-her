@@ -49,7 +49,19 @@ const HER_KNOWLEDGE = {
   cycle: `🌸 **Cycle-Synced Training & Hormonal Fueling:**
 • **Follicular Phase (Days 1–14):** Estrogen rises. Energy, insulin sensitivity, and strength peak! Perfect window to push hard on HIIT, Glute Ladders, and metabolic sessions.
 • **Luteal Phase (Days 15–28):** Progesterone rises. Resting metabolic rate increases by 100–200 kcal, but joint laxity and core temperature increase. Focus on TVA vacuums, posture flows, lower-impact sculpts, and complex carbohydrates with magnesium to beat cravings.
-• **Hydration & Bloat Flush:** Drink 2.5L water with electrolytes. Potassium-rich foods (coconut water, spinach, bananas) rapidly flush luteal water retention.`
+• **Hydration & Bloat Flush:** Drink 2.5L water with electrolytes. Potassium-rich foods (coconut water, spinach, bananas) rapidly flush luteal water retention.`,
+
+  pushup: `💪 **Push-Up Mastery Blueprint for Women:**
+• **Why Women MUST Do Push-Ups:**
+  1. Tones the back of the arms (triceps) to eliminate arm flab without bulky weights.
+  2. Firms and elevates the upper pectoral shelf, providing a natural bustline lift.
+  3. Demands intense anti-extension core bracing, flattening the lower stomach.
+• **The 5-Stage Progression to Your First Floor Rep:**
+  1. **Wall Push-Ups (3×15):** Learn the 45-degree elbow tuck (arrow shape, NOT flared 90° T-shape).
+  2. **Incline Bench Push-Ups (3×12):** Gradually lower the incline surface as your strength increases.
+  3. **Strict Knee Push-Ups (3×10):** Hips tucked, glutes squeezed, full chest to deck.
+  4. **5-Second Slow Negatives (3×5):** Start in full high plank from toes, fight gravity for 5 full seconds on the way down, drop to knees to push back up.
+  5. **First Strict Floor Push-Up:** Lock your thighs, press through the palms, and explode up in one rigid piece!`
 };
 
 export default function CoachAssistant() {
@@ -73,6 +85,7 @@ export default function CoachAssistant() {
   }, [messages, isOpen]);
 
   const quickPrompts = [
+    { label: "💪 Push-Up Mastery", query: "How do women build push-up strength?" },
     { label: "⏳ Cinch Waistline", query: "How to cinch waistline with stomach vacuum?" },
     { label: "🍑 Hourglass Glutes", query: "Best exercises for side hips and glute lift?" },
     { label: "🦢 Anti-Hunch Posture", query: "Fix forward shoulders and posture" },
@@ -94,7 +107,9 @@ export default function CoachAssistant() {
       const q = query.toLowerCase();
       let reply = "";
 
-      if (q.includes("waist") || q.includes("tummy") || q.includes("vacuum") || q.includes("stomach") || q.includes("corset")) {
+      if (q.includes("pushup") || q.includes("push-up") || q.includes("tricep") || q.includes("arm") || q.includes("upper body")) {
+        reply = HER_KNOWLEDGE.pushup;
+      } else if (q.includes("waist") || q.includes("tummy") || q.includes("vacuum") || q.includes("stomach") || q.includes("corset")) {
         reply = HER_KNOWLEDGE.waist;
       } else if (q.includes("glute") || q.includes("booty") || q.includes("hip") || q.includes("ass") || q.includes("hourglass")) {
         reply = HER_KNOWLEDGE.booty;
@@ -108,7 +123,8 @@ export default function CoachAssistant() {
         reply = HER_KNOWLEDGE.cycle;
       } else if (q.includes("routine") || q.includes("program") || q.includes("plan")) {
         reply = `🗓️ **Recommended FORGE HER Programs:**
-• **Snatched & Sculpted 30:** 4-week deep core & glute foundation. Perfect for beginners to tone and cinch.
+• **Goddess Push-Up & Upper Sculpt:** 4-week upper body & push-up volume roadmap.
+• **Snatched & Sculpted 30:** 4-week deep core & glute foundation.
 • **Hourglass Booty & Posture:** 6-week progressive volume focused on glute medius and thoracic spine alignment.
 • **Total Body Goddess Recomp:** 6-week full silhouette overhaul combining waist cinching, upper bustline tone, and metabolic burn.
 ✨ Check out the **Programs** tab to begin your journey!`;

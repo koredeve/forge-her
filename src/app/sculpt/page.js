@@ -8,13 +8,14 @@ import ExerciseModal from "@/components/ExerciseModal";
 import AuthGate from "@/components/AuthGate";
 import { haptics } from "@/lib/haptics";
 
-const FREE_SKILLS = ["vacuum", "glutebridge"];
+const FREE_SKILLS = ["pushup", "vacuum", "glutebridge"];
 
 export default function Sculpt() {
   const { skills, toggleSkill, getSkillsPct, startWorkout } = useFitness();
   const { isPro, openProModal } = useAuth();
 
   const [openSkills, setOpenSkills] = useState({
+    pushup: true,
     vacuum: true,
     glutebridge: true
   });
@@ -52,7 +53,7 @@ export default function Sculpt() {
   return (
     <AuthGate
       title="Feminine Sculpt Ladders"
-      subtitle="Sign in to track your progression levels, master TVA vacuums, and shape your silhouette."
+      subtitle="Sign in to track your progression levels, master strict push-ups & TVA vacuums, and shape your silhouette."
       icon="🌸"
     >
       <div className="vw active" id="v-sculpt">
@@ -63,7 +64,7 @@ export default function Sculpt() {
               Sculpt <em>Ladders</em>
             </h1>
             <p className="sub" style={{ maxWidth: "600px", color: "var(--tx-dim)" }}>
-              The 4 signature pillars of feminine aesthetics: cinched corset core, high glute shelf, side hip definition, and elongated anti-hunch posture.
+              The 5 signature pillars of feminine calisthenics: strict floor push-ups, cinched corset core, high glute shelf, side hip curves, and elongated anti-hunch posture.
             </p>
           </div>
 
@@ -78,7 +79,7 @@ export default function Sculpt() {
                 color: "#0d0f12",
                 fontWeight: "800"
               }}
-              onClick={() => openProModal("All 4 Sculpt Ladders")}
+              onClick={() => openProModal("All 5 Sculpt Ladders")}
             >
               🌸 Unlock All Ladders with PRO
             </button>

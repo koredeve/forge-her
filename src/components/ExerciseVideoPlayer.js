@@ -18,14 +18,21 @@ const HER_VIDEOS = {
   bulg: "/videos/bulg.mp4",
   squat: "/videos/squat.mp4",
   calf: "/videos/calf.mp4",
-  prayer: "/videos/diamond.mp4",
+  chestprayer: "/videos/pushup.mp4",
   inclinepush: "/videos/pushup.mp4",
+  pushup: "/videos/pushup.mp4",
+  kneepush: "/videos/pushup.mp4",
+  tricepdip: "/videos/dip.mp4",
+  shouldertap: "/videos/plank.mp4",
+  pikepush: "/videos/pike.mp4",
+  doorwayrow: "/videos/row.mp4",
+  mountainclimber: "/videos/burpee.mp4",
   flye: "/videos/diamond.mp4",
   cobra: "/videos/dloc.mp4",
   wallslide: "/videos/dloc.mp4",
   superman: "/videos/dog.mp4",
   downdog: "/videos/dog.mp4",
-  default: "/videos/hollow.mp4"
+  default: "/videos/pushup.mp4"
 };
 
 export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category }) {

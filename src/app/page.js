@@ -122,7 +122,7 @@ export default function Home() {
             <em>silhouette.</em>
           </h1>
           <p className="sub" style={{ margin: "6px 0 16px", maxWidth: "620px", color: "var(--tx-dim)" }}>
-            Feminine calisthenics & biomechanics: cinch your waistline with deep TVA vacuums, shape an hourglass glute shelf, lift your bustline, and perfect upright poise.
+            Feminine calisthenics & biomechanics: strict floor push-up mastery, cinched waistline with deep TVA vacuums, hourglass glute curves, and poised posture.
           </p>
 
           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
@@ -138,7 +138,7 @@ export default function Home() {
               ▶ {user ? "Start: Snatched Corset Core" : "Sign In to Begin Sculpting"}
             </button>
             <Link href="/sculpt" className="btn gh" style={{ borderColor: "rgba(255, 112, 166, 0.4)" }}>
-              🌸 Explore 4 Sculpt Ladders
+              🌸 Explore 5 Sculpt Ladders
             </Link>
           </div>
         </div>
@@ -310,11 +310,11 @@ export default function Home() {
         ))}
       </div>
 
-      {/* The 4 Signature Sculpt Ladders */}
+      {/* The 5 Signature Sculpt Ladders */}
       <div className="sh" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
         <div>
           <span className="cali-acc">PROGRESSIVE MASTERY</span>
-          <h2 style={{ fontSize: "20px", fontWeight: "900", margin: "2px 0 0" }}>The 4 Sculpt Ladders</h2>
+          <h2 style={{ fontSize: "20px", fontWeight: "900", margin: "2px 0 0" }}>The 5 Master Sculpt Ladders</h2>
         </div>
         <Link href="/sculpt" className="sm" style={{ color: "var(--acc)", fontWeight: "700" }}>
           Full Ladders →
