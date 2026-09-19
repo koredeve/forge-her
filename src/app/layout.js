@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import WorkoutPlayer from "@/components/WorkoutPlayer";
 import GlobalModals from "@/components/GlobalModals";
 import CoachAssistant from "@/components/CoachAssistant";
+import SecurityShield from "@/components/SecurityShield";
 import { AuthProvider } from "@/context/AuthContext";
 import { FitnessProvider } from "@/context/FitnessContext";
 import { Inter, Archivo } from "next/font/google";
@@ -79,6 +80,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className}`}>
         <AuthProvider>
           <FitnessProvider>
+            <SecurityShield />
             <Navbar />
             <main>{children}</main>
             <WorkoutPlayer />

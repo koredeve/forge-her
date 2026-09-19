@@ -364,7 +364,30 @@ export default function WorkoutPlayer() {
             loop
             muted
             playsInline
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            controlsList="nodownload noplaybackrate nofullscreen"
+            disablePictureInPicture
+            onContextMenu={(e) => e.preventDefault()}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              pointerEvents: "none",
+              userSelect: "none",
+              WebkitTouchCallout: "none"
+            }}
+          />
+
+          {/* Protective Guard Shield */}
+          <div
+            className="video-guard-shield"
+            onContextMenu={(e) => e.preventDefault()}
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              userSelect: "none",
+              WebkitTouchCallout: "none"
+            }}
           />
 
           {/* Phase Badge */}

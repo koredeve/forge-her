@@ -975,3 +975,20 @@ ul.rl li span {
 .sm {
   font-size: 12.5px;
 }
+
+/* Security Shield & Media Protection */
+.video-guard-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+video {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}

@@ -145,22 +145,42 @@ export default function ExerciseVideoPlayer({ exerciseId, exerciseName, category
           </div>
         </div>
       ) : (
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          poster={imageSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            width: "100%",
-            maxHeight: "clamp(180px, 26vh, 240px)",
-            display: "block",
-            objectFit: "cover",
-            filter: "contrast(105%) brightness(95%)"
-          }}
-        />
+        <>
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            poster={imageSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            controlsList="nodownload noplaybackrate nofullscreen"
+            disablePictureInPicture
+            onContextMenu={(e) => e.preventDefault()}
+            style={{
+              width: "100%",
+              maxHeight: "clamp(180px, 26vh, 240px)",
+              display: "block",
+              objectFit: "cover",
+              filter: "contrast(105%) brightness(95%)",
+              pointerEvents: "none",
+              userSelect: "none",
+              WebkitTouchCallout: "none"
+            }}
+          />
+          {/* Protective Guard Shield */}
+          <div
+            className="video-guard-shield"
+            onContextMenu={(e) => e.preventDefault()}
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              userSelect: "none",
+              WebkitTouchCallout: "none"
+            }}
+          />
+        </>
       )}
 
       {/* Floating Controls Bar */}
