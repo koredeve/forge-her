@@ -65,8 +65,7 @@ const HER_KNOWLEDGE = {
 };
 
 export default function CoachAssistant() {
-  const { user } = useFitness();
-  const { isPro } = useAuth();
+  const { user, openAuthModal } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -95,6 +94,10 @@ export default function CoachAssistant() {
   ];
 
   const handleSend = (textToSend) => {
+    if (!user) {
+      openAuthModal("Sign in or create a free account to consult Coach HER on feminine biomechanics and aesthetics.", "signup");
+      return;
+    }
     const query = (textToSend || input).trim();
     if (!query) return;
 
@@ -151,6 +154,10 @@ Try asking me about:
         className="coach-launcher-btn"
         onClick={() => {
           haptics.light();
+          if (!user) {
+            openAuthModal("Sign in or create a free account to consult Coach HER on feminine biomechanics and aesthetics.", "signup");
+            return;
+          }
           setIsOpen(!isOpen);
         }}
         aria-label="Open Coach HER"

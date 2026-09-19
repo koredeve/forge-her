@@ -21,6 +21,7 @@ export default function AuthGate({ title, subtitle, icon = "🌸", allowGuestPre
         <div
           className="card"
           style={{
+            position: "relative",
             padding: "40px 28px",
             background: "linear-gradient(180deg, #171c23 0%, #0e1115 100%)",
             border: "2px solid var(--acc)",
@@ -28,6 +29,40 @@ export default function AuthGate({ title, subtitle, icon = "🌸", allowGuestPre
             borderRadius: "24px"
           }}
         >
+          {/* Top Right Close Button */}
+          <button
+            className="xbtn"
+            onClick={() => {
+              if (typeof window !== "undefined" && window.history.length > 1) {
+                window.history.back();
+              } else {
+                window.location.href = "/";
+              }
+            }}
+            style={{
+              position: "absolute",
+              top: "16px",
+              right: "16px",
+              width: "36px",
+              height: "36px",
+              borderRadius: "50%",
+              background: "rgba(255, 255, 255, 0.08)",
+              border: "1px solid var(--ln)",
+              color: "#fff",
+              fontSize: "16px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "all 0.15s ease",
+              zIndex: 10
+            }}
+            title="Close & Return"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+
           <div style={{ fontSize: "52px", marginBottom: "12px" }}>{icon}</div>
 
           <span className="cali-acc" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--acc)" }}>
@@ -42,7 +77,7 @@ export default function AuthGate({ title, subtitle, icon = "🌸", allowGuestPre
             {subtitle || "Create a free account to unlock full HD video guides, sculpt ladders, cycle fuel, and workouts."}
           </p>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "340px", margin: "0 auto" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "340px", margin: "0 auto" }}>
             <button
               className="btn"
               style={{ justifyContent: "center", padding: "14px", fontSize: "15px", boxShadow: "0 6px 24px rgba(255, 112, 166, 0.35)", background: "linear-gradient(135deg, #ff70a6, #ff3d68)" }}
@@ -59,6 +94,19 @@ export default function AuthGate({ title, subtitle, icon = "🌸", allowGuestPre
                 👀 View Sample Teaser
               </button>
             )}
+            <button
+              className="btn gh sm"
+              style={{ justifyContent: "center", padding: "10px", fontSize: "13px" }}
+              onClick={() => {
+                if (typeof window !== "undefined" && window.history.length > 1) {
+                  window.history.back();
+                } else {
+                  window.location.href = "/";
+                }
+              }}
+            >
+              ← Return to Home Preview
+            </button>
           </div>
 
           <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px dashed var(--ln)", display: "flex", justifyContent: "space-around", color: "var(--mut)", fontSize: "12px" }}>
