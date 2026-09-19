@@ -5,6 +5,8 @@ import { db } from "@/lib/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { SKILLS, WORKOUTS, EXDB } from "@/data/db";
 
+const USERS_COLLECTION = "her_users";
+
 const FitnessContext = createContext({});
 
 export const useFitness = () => useContext(FitnessContext);
@@ -93,7 +95,7 @@ export function FitnessProvider({ children }) {
 
     const fetchFirestoreData = async () => {
       try {
-        const userRef = doc(db, "users", uid);
+        const userRef = doc(db, USERS_COLLECTION, uid);
         const snap = await getDoc(userRef).catch(() => null);
 
         if (snap && snap.exists()) {
@@ -134,7 +136,7 @@ export function FitnessProvider({ children }) {
       localStorage.setItem(`forgeher.pr_${uid}`, JSON.stringify(newPrs));
       localStorage.setItem(`forgeher.skills_${uid}`, JSON.stringify(newSkills));
 
-      const userRef = doc(db, "users", uid);
+      const userRef = doc(db, USERS_COLLECTION, uid);
       await setDoc(
         userRef,
         {
@@ -162,7 +164,7 @@ export function FitnessProvider({ children }) {
         localStorage.removeItem(`forgeher.log_${uid}`);
         localStorage.removeItem(`forgeher.pr_${uid}`);
         localStorage.removeItem(`forgeher.skills_${uid}`);
-        const userRef = doc(db, "users", uid);
+        const userRef = doc(db, USERS_COLLECTION, uid);
         await setDoc(
           userRef,
           { logs: [], prs: {}, skills: {}, updatedAt: new Date().toISOString() },
@@ -301,7 +303,7 @@ export function FitnessProvider({ children }) {
       const uid = user.uid;
       try {
         localStorage.setItem(`forgeher.custom_routines_${uid}`, JSON.stringify(updated));
-        const userRef = doc(db, "users", uid);
+        const userRef = doc(db, USERS_COLLECTION, uid);
         await setDoc(userRef, { customRoutines: updated }, { merge: true }).catch(() => {});
       } catch (e) {}
     } else {
@@ -322,7 +324,7 @@ export function FitnessProvider({ children }) {
       const uid = user.uid;
       try {
         localStorage.setItem(`forgeher.custom_routines_${uid}`, JSON.stringify(updated));
-        const userRef = doc(db, "users", uid);
+        const userRef = doc(db, USERS_COLLECTION, uid);
         await setDoc(userRef, { customRoutines: updated }, { merge: true }).catch(() => {});
       } catch (e) {}
     } else {

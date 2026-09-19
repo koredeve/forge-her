@@ -23,6 +23,9 @@ const VIP_PRO_EMAILS = [
   "kelight9@gmail.com"
 ];
 
+export const USERS_COLLECTION = "her_users";
+export const PASSES_COLLECTION = "her_passes";
+
 const AuthContext = createContext({});
 
 export const useAuth = () => useContext(AuthContext);
@@ -67,7 +70,7 @@ export function AuthProvider({ children }) {
       // 1. Check if user has an active time-limited or permanent pass in pro_passes
       let passValid = false;
       const passId = emailLower.replace(/[^a-z0-9_.-]/g, "_");
-      const passRef = doc(db, "pro_passes", passId);
+      const passRef = doc(db, PASSES_COLLECTION, passId);
       const passSnap = await getDoc(passRef).catch(() => null);
 
       if (passSnap && passSnap.exists()) {
@@ -92,7 +95,7 @@ export function AuthProvider({ children }) {
       }
 
       // 2. Check user's own document
-      const userRef = doc(db, "users", currentUser.uid);
+      const userRef = doc(db, USERS_COLLECTION, currentUser.uid);
       const docSnap = await getDoc(userRef).catch(() => null);
       if (docSnap && docSnap.exists()) {
         const data = docSnap.data();
@@ -246,7 +249,7 @@ export function AuthProvider({ children }) {
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
     const durationLabel = "7-Day Free Trial";
     const passId = cleanEmail.replace(/[^a-z0-9_.-]/g, "_");
-    const passRef = doc(db, "pro_passes", passId);
+    const passRef = doc(db, PASSES_COLLECTION, passId);
 
     const passDoc = {
       id: passId,
@@ -261,7 +264,7 @@ export function AuthProvider({ children }) {
     };
 
     await setDoc(passRef, passDoc);
-    const userRef = doc(db, "users", user.uid);
+    const userRef = doc(db, USERS_COLLECTION, user.uid);
     await setDoc(userRef, {
       plan: "pro",
       trialClaimed: true,
@@ -277,7 +280,7 @@ export function AuthProvider({ children }) {
   const setProPlan = async (status = true) => {
     setIsPro(status);
     if (user) {
-      const userRef = doc(db, "users", user.uid);
+      const userRef = doc(db, USERS_COLLECTION, user.uid);
       await setDoc(userRef, { plan: status ? "pro" : "free" }, { merge: true }).catch(() => {});
     }
   };
@@ -323,7 +326,7 @@ export function AuthProvider({ children }) {
     }
 
     const passId = cleanEmail.replace(/[^a-z0-9_.-]/g, "_");
-    const passRef = doc(db, "pro_passes", passId);
+    const passRef = doc(db, PASSES_COLLECTION, passId);
 
     const passDoc = {
       id: passId,
@@ -346,7 +349,7 @@ export function AuthProvider({ children }) {
     if (!isAdmin && !VIP_PRO_EMAILS.includes((user?.email || "").toLowerCase())) {
       throw new Error("Unauthorized: Only creator/admin can revoke PRO passes.");
     }
-    const passRef = doc(db, "pro_passes", passId);
+    const passRef = doc(db, PASSES_COLLECTION, passId);
     await updateDoc(passRef, { active: false, revokedAt: new Date().toISOString() });
   };
 
@@ -356,7 +359,7 @@ export function AuthProvider({ children }) {
       return [];
     }
     try {
-      const passesCol = collection(db, "pro_passes");
+      const passesCol = collection(db, PASSES_COLLECTION);
       const snap = await getDocs(passesCol);
       const list = [];
       snap.forEach((d) => {

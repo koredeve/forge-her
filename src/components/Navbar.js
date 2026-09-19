@@ -63,6 +63,31 @@ export default function Navbar() {
 
           {/* Right Action Area */}
           <div style={{ marginLeft: "auto", display: "flex", gap: "10px", alignItems: "center" }}>
+            {/* Ecosystem cross-link to ForgeHim */}
+            <a
+              href="https://forgehim.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ecosystem-pill"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+                padding: "5px 9px",
+                borderRadius: "100px",
+                background: "rgba(255, 107, 44, 0.12)",
+                border: "1px solid rgba(255, 107, 44, 0.35)",
+                color: "#FFA439",
+                fontSize: "11px",
+                fontWeight: "800",
+                textDecoration: "none",
+                letterSpacing: "0.03em"
+              }}
+              title="Switch to FORGE HIM (Men's Calisthenics)"
+            >
+              <span>HIM</span>
+              <span style={{ fontSize: "10px" }}>↗</span>
+            </a>
             {!isPro ? (
               <button
                 className="btn sm pro-badge-btn"
