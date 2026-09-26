@@ -114,7 +114,7 @@ header {
 }
 
 .mobile-burger-btn {
-  display: none;
+  display: none !important;
   font-size: 22px;
   color: var(--tx);
   padding: 4px 8px;

@@ -177,7 +177,6 @@ export default function Navbar() {
                 borderRadius: "10px",
                 background: mobileMenuOpen ? "rgba(255, 112, 166, 0.2)" : "rgba(255, 255, 255, 0.05)",
                 border: "1px solid " + (mobileMenuOpen ? "var(--acc)" : "var(--ln)"),
-                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 color: mobileMenuOpen ? "var(--acc)" : "var(--tx)",
